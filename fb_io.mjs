@@ -15,7 +15,13 @@ console.log('%c fb_io.mjs',
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the methods you want to call from the firebase modules
+import { initializeApp }
 
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+
+import { getDatabase }
+
+    from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -25,8 +31,8 @@ export {
     fb_initialise };
 
 function fb_initialise() {
-    console.log('%c fb_initialise(): ', 
-                'color: ' + COL_C + '; background-color: ' + COL_B + ';');
+    console.log('%c fb_initialise(): ', 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
+    console.log ("hello world");
 }
 
 /**************************************************************/
