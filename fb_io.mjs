@@ -29,6 +29,23 @@ function fb_initialise() {
       
 }
 
+  function fb_authenticate() {
+    const AUTH = getAuth();
+    const PROVIDER = new GoogleAuthProvider();
+
+    // The following makes Google ask the user to select the account
+
+PROVIDER.setCustomParameters({
+
+        prompt: 'select_account'
+ });
+  signInWithPopup(AUTH, PROVIDER).then((result) => {
+    })
+    .catch((error) => {
+      console.log (error);
+   });
+  }
+
 // Diagnostic code lines have a comment appended to them //DIAG
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
@@ -42,7 +59,7 @@ console.log('%c fb_io.mjs',
 // Import all the methods you want to call from the firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 /**************************************************************/
 // EXPORT FUNCTIONS
 
@@ -50,6 +67,8 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-d
 
 /**************************************************************/
 export { fb_initialise };
+
+export { fb_authenticate };
 
 
 
