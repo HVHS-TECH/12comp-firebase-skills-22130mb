@@ -20,6 +20,13 @@ import { fb_authenticate }
     from './fb_io.mjs';
     window.fb_authenticate  = fb_authenticate;
 
+import { fb_authstate }
+    from './fb_io.mjs';
+    window.fb_authstate  = fb_authstate;
+
+    import { fb_signout }
+    from './fb_io.mjs';
+    window.fb_signout  = fb_signout;
     
  
 /**************************************************************/

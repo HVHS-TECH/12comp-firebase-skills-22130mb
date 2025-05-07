@@ -46,6 +46,46 @@ PROVIDER.setCustomParameters({
    });
   }
 
+function fb_authstate() {
+  const AUTH = getAuth();
+
+    onAuthStateChanged(AUTH, (user) => {
+
+        if (user) {
+
+            console.log("user logged in");
+            console.log(user);
+        } else {
+
+           console.log("user logged out");
+
+        }
+
+    }, (error) => {
+
+        console.log("error happened");
+        console.log(error);
+
+    });
+}
+
+function fb_signout(){
+  const AUTH = getAuth();
+
+  signOut(AUTH).then(() => {
+
+      console.log("logout success");
+
+  })
+
+  .catch((error) => {
+
+    console.log("logout error");
+    console.log(error);
+
+  }); 
+}
+
 // Diagnostic code lines have a comment appended to them //DIAG
 /**************************************************************/
 const COL_C = 'white';	    // These two const are part of the coloured 	
@@ -60,6 +100,8 @@ console.log('%c fb_io.mjs',
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 /**************************************************************/
 // EXPORT FUNCTIONS
 
@@ -70,9 +112,9 @@ export { fb_initialise };
 
 export { fb_authenticate };
 
+export { fb_authstate };
 
-
-
+export {fb_signout};
 /**************************************************************/
 // END OF CODE
 /**************************************************************/
