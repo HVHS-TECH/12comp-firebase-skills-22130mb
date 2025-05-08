@@ -5,6 +5,30 @@
 //
 // All variables & function begin with fb_  all const with FB_
 
+// Diagnostic code lines have a comment appended to them //DIAG
+/**************************************************************/
+const COL_C = 'white';	    // These two const are part of the coloured 	
+const COL_B = '#CD7F32';	//  console.log for functions scheme
+console.log('%c fb_io.mjs',
+            'color: blue; background-color: white;');
+
+/**************************************************************/
+// Import all external constants & functions required
+/**************************************************************/
+// Import all the methods you want to call from the firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { ref, get} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+
+/**************************************************************/
+// EXPORT FUNCTIONS
+var fb_gameDB;
+// List all the functions called by code or html outside of this module
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
     console.log ("hello world");
@@ -17,16 +41,12 @@ function fb_initialise() {
         messagingSenderId: "75891205088",
         appId: "1:75891205088:web:9ce6dd10fe8f59fb6f8185",
         measurementId: "G-860HVWZ49V"
-      };
+    };
      
-      const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
+    const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
+    fb_gameDB  = getDatabase(FB_GAMEAPP);
     
-      const FB_GAMEDB  = getDatabase(FB_GAMEAPP);
-      
-      
-      console.info(FB_GAMEDB);   
-
-      
+    console.info(fb_gameDB);   
 }
 
   function fb_authenticate() {
@@ -86,27 +106,45 @@ function fb_signout(){
   }); 
 }
 
-// Diagnostic code lines have a comment appended to them //DIAG
-/**************************************************************/
-const COL_C = 'white';	    // These two const are part of the coloured 	
-const COL_B = '#CD7F32';	//  console.log for functions scheme
-console.log('%c fb_io.mjs',
-            'color: blue; background-color: white;');
 
-/**************************************************************/
-// Import all external constants & functions required
-/**************************************************************/
-// Import all the methods you want to call from the firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-/**************************************************************/
-// EXPORT FUNCTIONS
+function fb_writeto() {
 
-// List all the functions called by code or html outside of this module
+const dbReference= ref(fb_gameDB, "Users/UserID");
+var UserInformation = {highscore: 50, Name: "person"};
+    set(dbReference, UserInformation).then(() => {
+      
+        console.log("written the following indformation to the database");
+       console.log(UserInformation);
+    }).catch((error) => {
+       
+        console.log("write error");
+      console.log(error);
+    });
+}
 
+function fb_read(){
+const dbReference= ref(what-DB, where-to-read-from);
+
+    get(dbReference).then((snapshot) => {
+
+        var fb_data = snapshot.val();
+
+        if (fb_data != null) {
+
+           // ✅ Code for a successful read goes here
+
+        } else {
+
+            //✅ Code for no record found goes here
+
+        }
+
+    }).catch((error) => {
+
+        //❌ Code for a read error goes here
+
+    });  
+}
 /**************************************************************/
 export { fb_initialise };
 
@@ -115,6 +153,8 @@ export { fb_authenticate };
 export { fb_authstate };
 
 export {fb_signout};
+
+export {fb_writeto};
 /**************************************************************/
 // END OF CODE
 /**************************************************************/

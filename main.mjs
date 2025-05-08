@@ -24,11 +24,17 @@ import { fb_authstate }
     from './fb_io.mjs';
     window.fb_authstate  = fb_authstate;
 
-    import { fb_signout }
+import { fb_signout }
     from './fb_io.mjs';
     window.fb_signout  = fb_signout;
+
+import { fb_writeto }
+    from './fb_io.mjs';
+    window.fb_writeto  = fb_writeto;
     
- 
+import { fb_read }
+    from './fb_io.mjs';
+    window.fb_read  = fb_read;
 /**************************************************************/
 // index.html main code
 /**************************************************************/
