@@ -35,6 +35,14 @@ import { fb_writeto }
 import { fb_read }
     from './fb_io.mjs';
     window.fb_read  = fb_read;
+
+import { fb_readall }
+    from './fb_io.mjs';
+    window.fb_readall  = fb_readall;
+
+import { fb_update }
+    from './fb_io.mjs';
+    window.fb_update  = fb_update;
 /**************************************************************/
 // index.html main code
 /**************************************************************/

@@ -22,8 +22,8 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstati
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-import { ref, get} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+import { get} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -123,7 +123,7 @@ var UserInformation = {highscore: 50, Name: "person"};
 }
 
 function fb_read(){
-const dbReference= ref(what-DB, where-to-read-from);
+const dbReference= ref(fb_gameDB, "Users/UserID");
 
     get(dbReference).then((snapshot) => {
 
@@ -131,19 +131,59 @@ const dbReference= ref(what-DB, where-to-read-from);
 
         if (fb_data != null) {
 
-           // ✅ Code for a successful read goes here
-
+           console.log ("successful read");
+            console.log (fb_data);
         } else {
 
-            //✅ Code for no record found goes here
-
+            console.log ("no record found");
+            console.log(fb_data);
         }
 
     }).catch((error) => {
 
         //❌ Code for a read error goes here
-
+          console.log("read error");
+          console.log (error);
     });  
+}
+function fb_readall(){
+const dbReference= ref(fb_gameDB, "Users/UserID");
+
+    get(dbReference).then((snapshot) => {
+
+        var fb_data = snapshot.val();
+
+        if (fb_data != null) {
+
+            console.log ("read all success")
+            console.log(fb_data);
+        } else {
+
+            console.log("no record found")
+            console.log(fb_data);
+        }
+
+    }).catch((error) => {
+
+        console.log ("read all error")
+        console.log (error);
+    });
+}
+
+function fb_update(){
+ const dbReference= ref(fb_gameDB, "Users/UserID");
+
+    update(dbReference, fb_data).then(() => {
+
+        console.log ("update success")
+            console.log(fb_data);
+
+    }).catch((error) => {
+
+        console.log ("update error")
+            console.log(error);
+
+    });
 }
 /**************************************************************/
 export { fb_initialise };
@@ -155,6 +195,12 @@ export { fb_authstate };
 export {fb_signout};
 
 export {fb_writeto};
+
+export {fb_read};
+
+export {fb_readall};
+
+export {fb_update};
 /**************************************************************/
 // END OF CODE
 /**************************************************************/
