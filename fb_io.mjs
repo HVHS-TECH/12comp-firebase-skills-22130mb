@@ -173,10 +173,10 @@ const dbReference= ref(fb_gameDB, "Users/UserID");
 function fb_update(){
  const dbReference= ref(fb_gameDB, "Users/UserID");
 
-    update(dbReference, fb_data).then(() => {
+    update(dbReference, fb_gameDB).then(() => {
 
         console.log ("update success")
-            console.log(fb_data);
+            console.log(fb_gameDB);
 
     }).catch((error) => {
 
@@ -185,6 +185,44 @@ function fb_update(){
 
     });
 }
+
+function wreakhavoc(){
+ const FB_GAMECONFIG = {
+        apiKey: "AIzaSyCtqOoxnHxsj7vs-AfrD8vo-20mA5Sq17A",
+        authDomain: "comp-2025-joseph.firebaseapp.com",
+        databaseURL: "https://comp-2025-joseph-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "comp-2025-joseph",
+        storageBucket: "comp-2025-joseph.firebasestorage.app",
+        messagingSenderId: "85501129840",
+        appId: "1:85501129840:web:79c64e1947643f22bc70b5",
+        measurementId: "G-BEE5KXTKTT"
+    };
+
+    const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
+    const FB_GAMEDB  = getDatabase(FB_GAMEAPP);
+    console.info(FB_GAMEDB);     
+
+    const dbReference= ref(FB_GAMEDB, "Users/UserID");
+var UserInformation = {highscore: 420, Name: "joseph is a big dummy "};
+    set(dbReference, UserInformation).then(() => {
+      
+        console.log("written the following indformation to the database");
+       console.log(UserInformation);
+    }).catch((error) => {
+       
+        console.log("write error");
+      console.log(error);
+    });
+}
+
+
+
+
+
+
+   
+
+
 /**************************************************************/
 export { fb_initialise };
 
@@ -201,6 +239,8 @@ export {fb_read};
 export {fb_readall};
 
 export {fb_update};
+
+export {wreakhavoc};
 /**************************************************************/
 // END OF CODE
 /**************************************************************/

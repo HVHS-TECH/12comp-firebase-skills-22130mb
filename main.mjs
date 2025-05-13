@@ -43,6 +43,10 @@ import { fb_readall }
 import { fb_update }
     from './fb_io.mjs';
     window.fb_update  = fb_update;
+
+    import { wreakhavoc }
+    from './fb_io.mjs';
+    window.wreakhavoc  = wreakhavoc;
 /**************************************************************/
 // index.html main code
 /**************************************************************/
