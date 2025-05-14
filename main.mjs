@@ -12,41 +12,18 @@ console.log('%c main.mjs',
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise }
-    from './fb_io.mjs';
-    window.fb_initialise   = fb_initialise;
+import { fb_initialise, fb_authenticate, fb_authstate, fb_signout, fb_writeto, fb_read, fb_readall, fb_update, wreakhavoc, fb_readsorted } from './fb_io.mjs';
+window.fb_initialise = fb_initialise;
+window.fb_authenticate = fb_authenticate;
+window.fb_authstate = fb_authstate;
+window.fb_signout = fb_signout;
+window.fb_writeto = fb_writeto;
+window.fb_read = fb_read;
+window.fb_readall = fb_readall;
+window.fb_update = fb_update;
+window.wreakhavoc = wreakhavoc;
+window.fb_readsorted = fb_readsorted;
 
-import { fb_authenticate }
-    from './fb_io.mjs';
-    window.fb_authenticate  = fb_authenticate;
-
-import { fb_authstate }
-    from './fb_io.mjs';
-    window.fb_authstate  = fb_authstate;
-
-import { fb_signout }
-    from './fb_io.mjs';
-    window.fb_signout  = fb_signout;
-
-import { fb_writeto }
-    from './fb_io.mjs';
-    window.fb_writeto  = fb_writeto;
-    
-import { fb_read }
-    from './fb_io.mjs';
-    window.fb_read  = fb_read;
-
-import { fb_readall }
-    from './fb_io.mjs';
-    window.fb_readall  = fb_readall;
-
-import { fb_update }
-    from './fb_io.mjs';
-    window.fb_update  = fb_update;
-
-    import { wreakhavoc }
-    from './fb_io.mjs';
-    window.wreakhavoc  = wreakhavoc;
 /**************************************************************/
 // index.html main code
 /**************************************************************/

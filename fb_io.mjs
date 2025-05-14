@@ -10,7 +10,7 @@
 const COL_C = 'white';	    // These two const are part of the coloured 	
 const COL_B = '#CD7F32';	//  console.log for functions scheme
 console.log('%c fb_io.mjs',
-            'color: blue; background-color: white;');
+    'color: blue; background-color: white;');
 
 /**************************************************************/
 // Import all external constants & functions required
@@ -22,8 +22,9 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstati
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 import { ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-import { get} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { ref, query, orderByChild, limitToFirst } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -31,7 +32,7 @@ var fb_gameDB;
 // List all the functions called by code or html outside of this module
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
-    console.log ("hello world");
+    console.log("hello world");
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCHDtQ5nuCxgp_XCL_RtR7YVHv8mO1rhmc",
         authDomain: "comp-2025-max-bergman-4bb13.firebaseapp.com",
@@ -42,32 +43,32 @@ function fb_initialise() {
         appId: "1:75891205088:web:9ce6dd10fe8f59fb6f8185",
         measurementId: "G-860HVWZ49V"
     };
-     
+
     const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
-    fb_gameDB  = getDatabase(FB_GAMEAPP);
-    
-    console.info(fb_gameDB);   
+    fb_gameDB = getDatabase(FB_GAMEAPP);
+
+    console.info(fb_gameDB);
 }
 
-  function fb_authenticate() {
+function fb_authenticate() {
     const AUTH = getAuth();
     const PROVIDER = new GoogleAuthProvider();
 
     // The following makes Google ask the user to select the account
 
-PROVIDER.setCustomParameters({
+    PROVIDER.setCustomParameters({
 
         prompt: 'select_account'
- });
-  signInWithPopup(AUTH, PROVIDER).then((result) => {
+    });
+    signInWithPopup(AUTH, PROVIDER).then((result) => {
     })
-    .catch((error) => {
-      console.log (error);
-   });
-  }
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
 function fb_authstate() {
-  const AUTH = getAuth();
+    const AUTH = getAuth();
 
     onAuthStateChanged(AUTH, (user) => {
 
@@ -77,7 +78,7 @@ function fb_authstate() {
             console.log(user);
         } else {
 
-           console.log("user logged out");
+            console.log("user logged out");
 
         }
 
@@ -89,41 +90,41 @@ function fb_authstate() {
     });
 }
 
-function fb_signout(){
-  const AUTH = getAuth();
+function fb_signout() {
+    const AUTH = getAuth();
 
-  signOut(AUTH).then(() => {
+    signOut(AUTH).then(() => {
 
-      console.log("logout success");
+        console.log("logout success");
 
-  })
+    })
 
-  .catch((error) => {
+        .catch((error) => {
 
-    console.log("logout error");
-    console.log(error);
+            console.log("logout error");
+            console.log(error);
 
-  }); 
+        });
 }
 
 
 function fb_writeto() {
 
-const dbReference= ref(fb_gameDB, "Users/UserID");
-var UserInformation = {highscore: 50, Name: "person"};
+    const dbReference = ref(fb_gameDB, "Users/UserID");
+    var UserInformation = { highscore: 50, Name: "person" };
     set(dbReference, UserInformation).then(() => {
-      
+
         console.log("written the following indformation to the database");
-       console.log(UserInformation);
+        console.log(UserInformation);
     }).catch((error) => {
-       
+
         console.log("write error");
-      console.log(error);
+        console.log(error);
     });
 }
 
-function fb_read(){
-const dbReference= ref(fb_gameDB, "Users/UserID");
+function fb_read() {
+    const dbReference = ref(fb_gameDB, "Users/UserID");
 
     get(dbReference).then((snapshot) => {
 
@@ -131,23 +132,23 @@ const dbReference= ref(fb_gameDB, "Users/UserID");
 
         if (fb_data != null) {
 
-           console.log ("successful read");
-            console.log (fb_data);
+            console.log("successful read");
+            console.log(fb_data);
         } else {
 
-            console.log ("no record found");
+            console.log("no record found");
             console.log(fb_data);
         }
 
     }).catch((error) => {
 
         //❌ Code for a read error goes here
-          console.log("read error");
-          console.log (error);
-    });  
+        console.log("read error");
+        console.log(error);
+    });
 }
-function fb_readall(){
-const dbReference= ref(fb_gameDB, "Users/UserID");
+function fb_readall() {
+    const dbReference = ref(fb_gameDB, "Users/UserID");
 
     get(dbReference).then((snapshot) => {
 
@@ -155,7 +156,7 @@ const dbReference= ref(fb_gameDB, "Users/UserID");
 
         if (fb_data != null) {
 
-            console.log ("read all success")
+            console.log("read all success")
             console.log(fb_data);
         } else {
 
@@ -165,29 +166,52 @@ const dbReference= ref(fb_gameDB, "Users/UserID");
 
     }).catch((error) => {
 
-        console.log ("read all error")
-        console.log (error);
+        console.log("read all error")
+        console.log(error);
     });
 }
 
-function fb_update(){
- const dbReference= ref(fb_gameDB, "Users/UserID");
+function fb_update() {
+    const dbReference = ref(fb_gameDB, "Users/UserID");
+    var UserInformation = { highscore: 69, Name: "gertrude" }
+    update(dbReference, UserInformation).then(() => {
 
-    update(dbReference, fb_gameDB).then(() => {
-
-        console.log ("update success")
-            console.log(fb_gameDB);
+        console.log("update success")
+        console.log(fb_gameDB);
 
     }).catch((error) => {
 
-        console.log ("update error")
-            console.log(error);
+        console.log("update error")
+        console.log(error);
 
     });
 }
 
-function wreakhavoc(){
- const FB_GAMECONFIG = {
+function fb_readsorted(){
+const dbReference= query(ref(what-DB, where-to-read-from), orderByChild(sortkey), limitToFirst(number-to-read));
+
+    get(dbReference).then((snapshot) => {
+
+        var fb_data = snapshot.val();
+
+      if (fb_data != null) {
+
+           //✅ Code for a successful sorted read goes here
+
+        } else {
+
+           //✅ Code for no record found goes here
+
+        }
+
+    }).catch((error) => {
+
+        //❌ Code for a sorted read error goes here
+
+    });
+}
+function wreakhavoc() {
+    const FB_GAMECONFIG = {
         apiKey: "AIzaSyCtqOoxnHxsj7vs-AfrD8vo-20mA5Sq17A",
         authDomain: "comp-2025-joseph.firebaseapp.com",
         databaseURL: "https://comp-2025-joseph-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -199,48 +223,35 @@ function wreakhavoc(){
     };
 
     const FB_GAMEAPP = initializeApp(FB_GAMECONFIG);
-    const FB_GAMEDB  = getDatabase(FB_GAMEAPP);
-    console.info(FB_GAMEDB);     
+    const FB_GAMEDB = getDatabase(FB_GAMEAPP);
+    console.info(FB_GAMEDB);
 
-    const dbReference= ref(FB_GAMEDB, "Users/UserID");
-var UserInformation = {highscore: 420, Name: "joseph is a big dummy "};
+    const dbReference = ref(FB_GAMEDB, "Users/UserID");
+    var UserInformation = { highscore: 420, Name: "joseph is a big dummy " };
     set(dbReference, UserInformation).then(() => {
-      
+
         console.log("written the following indformation to the database");
-       console.log(UserInformation);
+        console.log(UserInformation);
     }).catch((error) => {
-       
+
         console.log("write error");
-      console.log(error);
+        console.log(error);
     });
 }
 
-
-
-
-
-
-   
-
-
 /**************************************************************/
-export { fb_initialise };
-
-export { fb_authenticate };
-
-export { fb_authstate };
-
-export {fb_signout};
-
-export {fb_writeto};
-
-export {fb_read};
-
-export {fb_readall};
-
-export {fb_update};
-
-export {wreakhavoc};
+export {
+  fb_initialise,
+  fb_authenticate,
+  fb_authstate,
+  fb_signout,
+  fb_writeto,
+  fb_read,
+  fb_readall,
+  fb_update,
+  wreakhavoc,
+  fb_readsorted
+};
 /**************************************************************/
 // END OF CODE
 /**************************************************************/
