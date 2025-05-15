@@ -24,7 +24,7 @@ import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.
 import { ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-import { ref, query, orderByChild, limitToFirst } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { query, orderByChild, limitToFirst } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -188,26 +188,32 @@ function fb_update() {
 }
 
 function fb_readsorted(){
-const dbReference= query(ref(what-DB, where-to-read-from), orderByChild(sortkey), limitToFirst(number-to-read));
+const dbReference= query(ref(fb_gameDB, "Users/UserID"), orderByChild("Highscore"), limitToFirst(5));
 
-    get(dbReference).then((snapshot) => {
+    get(dbReference).then((snapshot) => {   
+    get(dbReference).then((allScoreDataSnapshot) => {
+    allScoreDataSnapshot.forEach(function (userScoreSnapshot) {
+    var obj = userScoreSnapshot.val();
+    console.log(obj);
+        });
+    });
 
         var fb_data = snapshot.val();
 
       if (fb_data != null) {
 
-           //✅ Code for a successful sorted read goes here
+          console.log("successful read");
 
         } else {
 
-           //✅ Code for no record found goes here
-
+           console.log("no record found");
+            
         }
 
     }).catch((error) => {
 
-        //❌ Code for a sorted read error goes here
-
+        console.log("read error");
+        console.log(error);
     });
 }
 function wreakhavoc() {
