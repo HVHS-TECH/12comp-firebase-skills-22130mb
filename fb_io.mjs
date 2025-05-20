@@ -195,12 +195,21 @@ const dbReference= query(ref(fb_gameDB, "Users/UserID"), orderByChild("Highscore
     allScoreDataSnapshot.forEach(function (userScoreSnapshot) {
     var obj = userScoreSnapshot.val();
     console.log(obj);
+     get(dbReference).then((Snapshot) => {
+    });
+
         });
     });
 
         var fb_data = snapshot.val();
 
       if (fb_data != null) {
+         get(dbReference).then((allScoreDataSnapshot) => {
+        allScoreDataSnapshot.forEach(function (userScoreSnapshot) {
+            var obj = userScoreSnapshot.val();
+            console.log(obj);
+        });
+    });
 
           console.log("successful read");
 
