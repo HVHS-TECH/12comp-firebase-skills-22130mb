@@ -29,6 +29,7 @@ import { query, orderByChild, limitToFirst } from "https://www.gstatic.com/fireb
 /**************************************************************/
 // EXPORT FUNCTIONS
 var fb_gameDB;
+var fb_uid;
 // List all the functions called by code or html outside of this module
 function fb_initialise() {
     console.log('%c fb_initialise(): ', 'color: ' + COL_C + '; background-color: ' + COL_B + ';');
@@ -61,6 +62,9 @@ function fb_authenticate() {
         prompt: 'select_account'
     });
     signInWithPopup(AUTH, PROVIDER).then((result) => {
+         console.log(result);
+        console.log(result.user.uid);
+        fb_uid = result.user.uid;
     })
         .catch((error) => {
             console.log(error);
@@ -110,7 +114,7 @@ function fb_signout() {
 
 function fb_writeto() {
 
-    const dbReference = ref(fb_gameDB, "Users/UserID");
+    const dbReference = ref(fb_gameDB, ("Users/" + fb_uid));
     var UserInformation = { highscore: 50, Name: "person" };
     set(dbReference, UserInformation).then(() => {
 
@@ -124,7 +128,7 @@ function fb_writeto() {
 }
 
 function fb_read() {
-    const dbReference = ref(fb_gameDB, "Users/UserID");
+    const dbReference = ref(fb_gameDB, ("Users/" + fb_uid));
 
     get(dbReference).then((snapshot) => {
 
@@ -148,7 +152,7 @@ function fb_read() {
     });
 }
 function fb_readall() {
-    const dbReference = ref(fb_gameDB, "Users/UserID");
+    const dbReference = ref(fb_gameDB, ("Users/" + fb_uid));
 
     get(dbReference).then((snapshot) => {
 
@@ -172,8 +176,8 @@ function fb_readall() {
 }
 
 function fb_update() {
-    const dbReference = ref(fb_gameDB, "Users/UserID");
-    var UserInformation = { highscore: 69, Name: "gertrude" }
+    const dbReference = ref(fb_gameDB, ("Users/" + fb_uid));
+    var UserInformation = { highscore: 42, Name: "joseph" }
     update(dbReference, UserInformation).then(() => {
 
         console.log("update success")
@@ -188,7 +192,7 @@ function fb_update() {
 }
 
 function fb_readsorted(){
-const dbReference= query(ref(fb_gameDB, "Users/UserID"), orderByChild("Highscore"), limitToFirst(5));
+const dbReference= query(ref(fb_gameDB, ("Users/" + fb_uid)), orderByChild("highscore"), limitToFirst(5));
 
     get(dbReference).then((snapshot) => {   
     get(dbReference).then((allScoreDataSnapshot) => {
