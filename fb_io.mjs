@@ -25,6 +25,7 @@ import { ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-data
 import { get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { query, orderByChild, limitToFirst } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -229,6 +230,31 @@ const dbReference= query(ref(fb_gameDB, ("Users/" + fb_uid)), orderByChild("high
         console.log(error);
     });
 }
+
+function fb_readonvalue() {
+const dbReference = ref(fb_gameDB, ("Users/" + fb_uid));
+
+    onValue(dbReference, (snapshot) => {
+
+        var fb_data = snapshot.val();
+
+        if (fb_data != null) {
+
+            console.log (snapshot.val());
+            console.log("successful read");
+
+        } else {
+
+            //✅ Code for no record found goes here
+            console.log("no record found");
+            console.log(error)
+        }
+
+    });
+}
+
+
+
 function wreakhavoc() {
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCtqOoxnHxsj7vs-AfrD8vo-20mA5Sq17A",
@@ -269,7 +295,8 @@ export {
   fb_readall,
   fb_update,
   wreakhavoc,
-  fb_readsorted
+  fb_readsorted,
+  fb_readonvalue
 };
 /**************************************************************/
 // END OF CODE
